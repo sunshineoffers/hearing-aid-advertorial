@@ -1,0 +1,518 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Advertorial</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;900&family=Source+Serif+4:ital,wght@0,300;0,400;0,600;1,300;1,400&family=Barlow:wght@400;500;600&display=swap" rel="stylesheet" />
+
+  <style>
+    /* ─── Reset & Base ─────────────────────────────────────── */
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --black:       #0d0d0d;
+      --ink:         #1a1a1a;
+      --body-text:   #2c2c2c;
+      --muted:       #666;
+      --rule:        #c8c8c8;
+      --accent:      #b8860b;       /* dark-gold headline accent */
+      --accent-warm: #d4a017;
+      --bg:          #f9f6f1;       /* warm off-white newsprint feel */
+      --white:       #ffffff;
+      --col-width:   680px;
+      --font-display: 'Playfair Display', Georgia, serif;
+      --font-body:    'Source Serif 4', Georgia, serif;
+      --font-ui:      'Barlow', system-ui, sans-serif;
+    }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      background: var(--bg);
+      color: var(--body-text);
+      font-family: var(--font-body);
+      font-size: 18px;
+      line-height: 1.75;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    /* ─── Site Shell ────────────────────────────────────────── */
+    .page-wrap {
+      width: 100%;
+      background: var(--white);
+    }
+
+    /* ─── Top Bar ───────────────────────────────────────────── */
+    .top-bar {
+      background: var(--black);
+      color: var(--white);
+      text-align: center;
+      padding: 10px 24px;
+      font-family: var(--font-ui);
+      font-size: 11px;
+      letter-spacing: .18em;
+      text-transform: uppercase;
+    }
+
+    /* ─── Masthead ──────────────────────────────────────────── */
+    .masthead {
+      border-bottom: none;
+      padding: 28px 48px 22px;
+      text-align: center;
+      background: var(--white);
+      max-width: 820px;
+      margin: 0 auto;
+    }
+
+    .masthead__label {
+      font-family: var(--font-ui);
+      font-size: 10px;
+      letter-spacing: .22em;
+      text-transform: uppercase;
+      color: var(--muted);
+      display: block;
+      margin-bottom: 6px;
+    }
+
+    .masthead__logo {
+      display: block;
+      max-width: 180px;
+      margin: 0 auto 8px;
+    }
+
+    .masthead__rule { display: none; }
+
+    /* ─── Advertorial Badge ─────────────────────────────────── */
+    .advertorial-badge {
+      display: block;
+      font-family: var(--font-ui);
+      font-size: 13px;
+      letter-spacing: .1em;
+      text-transform: uppercase;
+      color: var(--muted);
+      margin: 20px auto 0;
+      text-align: center;
+    }
+
+    /* ─── Article Container ─────────────────────────────────── */
+    .article {
+      padding: 0 48px 60px;
+      max-width: 820px;
+      margin: 0 auto;
+    }
+
+    /* ─── Headline ──────────────────────────────────────────── */
+    .article__headline {
+      font-family: Arial, sans-serif;
+      font-size: 40px;
+      font-weight: 900;
+      line-height: 1.18;
+      color: var(--black);
+      margin: 24px 0 18px;
+      text-align: left;
+      letter-spacing: -.01em;
+    }
+
+    /* ─── Byline ────────────────────────────────────────────── */
+    .byline {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 18px;
+      font-family: var(--font-ui);
+      font-size: 13px;
+      color: var(--muted);
+      padding: 14px 0;
+      border-top: none;
+      border-bottom: none;
+      margin-bottom: 28px;
+    }
+
+    .byline__avatar {
+      width: 38px;
+      height: 38px;
+      border-radius: 50%;
+      object-fit: cover;
+      background: var(--rule);
+      flex-shrink: 0;
+    }
+
+    .byline__author { font-weight: 600; color: var(--ink); }
+    .byline__sep { color: var(--rule); }
+    .byline__read-time { font-style: italic; }
+
+    /* ─── Hero Image ────────────────────────────────────────── */
+    .article__hero {
+      display: block;
+      width: 100%;
+      border-radius: 2px;
+      margin-bottom: 32px;
+      cursor: pointer;
+      transition: opacity .2s;
+    }
+    .article__hero:hover { opacity: .92; }
+
+    /* ─── Body Copy ─────────────────────────────────────────── */
+    .article p {
+      margin-bottom: 18px;
+      font-size: 20px;
+      color: var(--body-text);
+    }
+
+    .article p strong {
+      color: var(--ink);
+      font-weight: 600;
+    }
+
+    /* ─── Section Headings ──────────────────────────────────── */
+    .article h2 {
+      font-family: Arial, sans-serif;
+      font-size: 30px;
+      font-weight: 700;
+      color: var(--black);
+      margin: 40px 0 18px;
+      line-height: 1.25;
+      padding-top: 32px;
+      border-top: none;
+    }
+
+    /* ─── Inline Images (clickable) ─────────────────────────── */
+    .article__img-link {
+      display: block;
+      margin: 28px 0;
+    }
+
+    .article__img-link img {
+      width: 100%;
+      border-radius: 2px;
+      cursor: pointer;
+      transition: opacity .2s;
+      display: block;
+    }
+    .article__img-link img:hover { opacity: .92; }
+
+    /* ─── Pull Quote ────────────────────────────────────────── */
+    .pull-quote {
+      margin: 0;
+      padding: 0;
+      background: none;
+      border: none;
+    }
+
+    .pull-quote p {
+      font-size: 20px !important;
+      font-style: italic;
+      color: var(--ink) !important;
+      margin: 0 !important;
+    }
+
+    /* ─── Steps Block ───────────────────────────────────────── */
+    .steps {
+      background: #fafafa;
+      border: 1px solid var(--rule);
+      border-radius: 4px;
+      padding: 28px 32px;
+      margin: 28px 0 36px;
+    }
+
+    .steps__item {
+      display: flex;
+      gap: 18px;
+      align-items: flex-start;
+      margin-bottom: 18px;
+    }
+    .steps__item:last-child { margin-bottom: 0; }
+
+    .steps__num {
+      background: var(--black);
+      color: var(--white);
+      font-family: var(--font-ui);
+      font-weight: 700;
+      font-size: 13px;
+      width: 30px;
+      height: 30px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+      margin-top: 2px;
+    }
+
+    .steps__text {
+      font-family: var(--font-ui);
+      font-size: 16px;
+      line-height: 1.6;
+      color: var(--ink);
+    }
+
+    /* ─── CTA Button ────────────────────────────────────────── */
+    .cta-wrap {
+      text-align: center;
+      margin: 36px 0;
+    }
+
+    .cta-btn {
+      display: inline-block;
+      background: var(--accent);
+      color: var(--white);
+      font-family: var(--font-ui);
+      font-weight: 600;
+      font-size: 16px;
+      letter-spacing: .04em;
+      text-transform: uppercase;
+      text-decoration: none;
+      padding: 16px 40px;
+      border-radius: 2px;
+      transition: background .2s, transform .15s;
+      box-shadow: 0 4px 18px rgba(184,134,11,.35);
+    }
+    .cta-btn:hover {
+      background: var(--accent-warm);
+      transform: translateY(-2px);
+    }
+
+    /* ─── Map / State Selector Image ────────────────────────── */
+    .state-map {
+      display: block;
+      width: 100%;
+      margin: 24px 0 12px;
+      cursor: pointer;
+      border-radius: 2px;
+      transition: opacity .2s;
+    }
+    .state-map:hover { opacity: .92; }
+
+    /* ─── Disclaimer / Footer ───────────────────────────────── */
+    .footer {
+      border-top: 3px double var(--rule);
+      padding: 32px 48px;
+      text-align: center;
+      max-width: 820px;
+      margin: 0 auto;
+    }
+
+    .footer__links {
+      list-style: none;
+      display: flex;
+      justify-content: center;
+      gap: 24px;
+      flex-wrap: wrap;
+      margin-bottom: 20px;
+    }
+
+    .footer__links a {
+      font-family: var(--font-ui);
+      font-size: 12px;
+      color: var(--muted);
+      text-decoration: none;
+      letter-spacing: .05em;
+    }
+    .footer__links a:hover { color: var(--ink); text-decoration: underline; }
+
+    .footer__ad-label {
+      font-family: var(--font-ui);
+      font-size: 10px;
+      letter-spacing: .14em;
+      text-transform: uppercase;
+      color: var(--muted);
+      margin-bottom: 14px;
+      font-weight: 600;
+    }
+
+    .footer__disclaimer {
+      font-family: var(--font-ui);
+      font-size: 11px;
+      color: var(--muted);
+      line-height: 1.65;
+      max-width: 680px;
+      margin: 0 auto;
+    }
+
+    .footer__sources {
+      margin-top: 14px;
+      font-family: var(--font-ui);
+      font-size: 10px;
+      color: #aaa;
+    }
+    .footer__sources a { color: #aaa; }
+
+    /* ─── Responsive ────────────────────────────────────────── */
+    @media (max-width: 640px) {
+      .masthead, .article, .footer { padding-left: 22px; padding-right: 22px; }
+      .article p, .article p strong { font-size: 18px; }
+      .byline { flex-direction: column; gap: 8px; text-align: center; }
+    }
+  </style>
+</head>
+
+<body>
+
+<div class="page-wrap">
+
+  <!-- ── Masthead ─────────────────────────────────────────── -->
+  <header class="masthead">
+    <!-- Replace src with your publication logo or wordmark -->
+    <span class="masthead__label">Featured Report</span>
+    <img
+      class="masthead__logo"
+      src="https://via.placeholder.com/180x48?text=PUBLICATION+LOGO"
+      alt="Publication Logo"
+    />
+    <hr class="masthead__rule" />
+    <span class="advertorial-badge">Advertorial</span>
+  </header>
+
+  <!-- ── Article Body ──────────────────────────────────────── -->
+  <main class="article">
+
+    <!-- Headline -->
+    <h1 class="article__headline">
+      From Muffled To Surround Sound: Discover How This New AI-Powered Hearing Aid Is Bringing Back Speech Clarity Without Breaking The Bank
+    </h1>
+
+    <!-- Byline -->
+    <div class="byline">
+      <img
+        class="byline__avatar"
+        src="https://via.placeholder.com/38x38"
+        alt="Author"
+      />
+      <span>
+        <span class="byline__author">Staff Writer</span>
+        <span class="byline__sep"> · </span>
+        May 23, 2026
+      </span>
+      <span class="byline__sep">|</span>
+      <span class="byline__read-time">⏱ 2 minute read</span>
+    </div>
+
+    <!-- Hero Image (clickable → CTA) -->
+    <a href="YOUR_CTA_LINK_HERE" target="_blank">
+      <img
+        class="article__hero"
+        src="https://via.placeholder.com/820x460?text=Hero+Image"
+        alt="AI-Powered Hearing Aid"
+      />
+    </a>
+
+    <!-- Body Copy – Section 1 -->
+    <p>It's a shame most Americans with hearing loss have just accepted it as their "new way" of life.</p>
+    <p>Conversations in restaurants become impossible to the point where they barely go out anymore…</p>
+    <p>…The TV volume needs to be maxed out just so they can watch the news…</p>
+    <p>…And the one that hits the most…they miss out on those precious conversations with their kids or grandkids.</p>
+    <p>And the main reason why they've accepted this new way of life is because either they've tried those cheap over-the-counter hearing devices that don't work…</p>
+    <p>…They think hearing aids are too expensive to even give it a shot…</p>
+    <p>…Or that hearing aids are too bulky.</p>
+    <p>But what if there was a way where you could hear clearly again with <strong>NASA-like technology that doesn't break the bank and camouflages behind your ear?</strong></p>
+    <p>A way where you'll find yourself going back out with family and friends to noisy restaurants and not miss a word…</p>
+    <p>…Being able to watch TV without maxing out the volume…</p>
+    <p>…And most importantly, have those precious conversations with your kids or grandkids again.</p>
+
+    <!-- Section Heading -->
+    <h2>What Is It?</h2>
+
+    <!-- Inline Image 2 -->
+    <a class="article__img-link" href="YOUR_CTA_LINK_HERE" target="_blank">
+      <img
+        src="https://via.placeholder.com/820x460?text=Signia+IX+Image"
+        alt="Signia IX Hearing Aid"
+      />
+    </a>
+
+    <p>Thanks to one of the nation's most-passionate hearing care facilities, <strong>Hello Hearing Studios</strong>…</p>
+    <p>…Americans struggling with hearing loss now have access to a <strong>brand-new, AI-Powered hearing aid</strong> that makes it seem like it's from the future.</p>
+    <p>This high-tech hearing aid is called the Signia IX and you won't believe how powerful it is.</p>
+    <p>Signia IX's sophisticated AI processes nearly 200,000 data points per second!</p>
+    <p>In other words, your hearing aid is so advanced, it knows who is talking to you and will focus on that person or group…</p>
+    <p>…Allowing you to fully engage in conversations in noisy environments again.</p>
+    <p>And the best part? The Signia IX isn't bulky like traditional hearing aids.</p>
+    <p>Signia has been able to fit their AI-tech into a much slimmer design with multiple skin-tone options available…</p>
+    <p>…<strong>Making your hearing aid virtually invisible.</strong></p>
+    <p>Oh, and one more incredible feature the Signia IX offers is bluetooth connectivity so you can connect and talk on the phone without having to put your phone to your ear.</p>
+
+    <!-- Section Heading -->
+    <h2>Limited Risk-Free Experiences Are Available</h2>
+
+    <!-- Inline Image 3 -->
+    <a class="article__img-link" href="YOUR_CTA_LINK_HERE" target="_blank">
+      <img
+        src="https://via.placeholder.com/820x460?text=Hello+Hearing+Studios"
+        alt="Hello Hearing Studios"
+      />
+    </a>
+
+    <p>Thanks to Hello Hearing Studios partnering up with Signia, Hello Hearing Studios will cover your hearing evaluation AND the first 45 days for you to try your new AI-powered hearing aids…</p>
+    <p>…Allowing you to go for a full test drive and experience how much your quality of life could improve.</p>
+    <p>You'll see how you'll experience more conversations with your family and friends because background noise won't be an issue anymore…</p>
+    <p>…You'll see how you won't have to miss any more precious moments in life because everything sounds too muffled for you to understand…</p>
+    <p>…All because you decided to make the right decision to start the easy process of bringing back the one ability that we all take for granted…</p>
+    <p>…<strong>The ability to hear clearly.</strong></p>
+
+    <!-- Section Heading -->
+    <h2>Here's How To Check If You're Eligible For A Risk-Free Experience</h2>
+
+    <!-- Steps -->
+    <div class="steps">
+      <div class="steps__item">
+        <div class="steps__num">1</div>
+        <div class="steps__text"><strong>Click on your state below.</strong></div>
+      </div>
+      <div class="steps__item">
+        <div class="steps__num">2</div>
+        <div class="steps__text"><strong>Answer a few simple questions</strong> and you'll see if you're eligible.</div>
+      </div>
+    </div>
+
+    <!-- State Map / CTA Image -->
+    <a href="YOUR_CTA_LINK_HERE" target="_blank">
+      <img
+        class="state-map"
+        src="https://via.placeholder.com/820x460?text=Select+Your+State"
+        alt="Select your state to check eligibility"
+      />
+    </a>
+
+    <!-- CTA Button -->
+    <div class="cta-wrap">
+      <a class="cta-btn" href="YOUR_CTA_LINK_HERE" target="_blank">
+        Check My Eligibility →
+      </a>
+    </div>
+
+  </main><!-- /article -->
+
+  <!-- ── Footer ────────────────────────────────────────────── -->
+  <footer class="footer">
+
+    <ul class="footer__links">
+      <li><a href="https://spectremiami.com/privacy-policy" target="_blank">Privacy Policy</a></li>
+      <li><a href="https://spectremiami.com/terms-and-conditions" target="_blank">Terms of Use</a></li>
+      <li><a href="https://spectremiami.com" target="_blank">Contact Us</a></li>
+    </ul>
+
+    <p class="footer__ad-label">This Is An Advertisement</p>
+
+    <p class="footer__disclaimer">
+      THIS IS AN ADVERTISEMENT AND NOT AN ACTUAL NEWS ARTICLE, BLOG, OR CONSUMER PROTECTION UPDATE. The content is for information purposes only and does not constitute an offer to avail of any service. Prices mentioned are subject to change without notice and properties mentioned are subject to availability. Images for representation purposes only.
+      <br /><br />
+      Stated square footages and dimensions are measured to the exterior boundaries of the exterior walls and the centerline of interior demising walls and in fact vary from the square footage that would be determined by using the description and definition of the "Unit" set forth in the Declaration. All dimensions are estimates which will vary with actual construction, and all floor plans, specifications and other development plans are subject to change.
+      <br /><br />
+      ALL RENDERINGS ARE CONCEPTUAL — DEVELOPER MAY CHANGE WITHOUT NOTICE.
+    </p>
+
+    <p class="footer__sources">
+      *Sources:
+      <a href="https://therealdeal.com/miami/2023/06/07/urbana-plans-121-unit-condo-project-in-miamis-edgewater/" target="_blank">The Real Deal</a> ·
+      <a href="https://www.hoteldive.com/news/market-spotlight-miami/702378/" target="_blank">Hotel Dive</a>
+    </p>
+
+  </footer>
+
+</div><!-- /page-wrap -->
+
+</body>
+</html>
